@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,9 +14,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+//Route::get('/', function () {
+//    $movies = App\Movie::all();
+//    return view('welcome', compact('movies'));
+//});
+
+Route::get('/', ['uses' => 'MovieController@list']);
+Route::get('/movie/{id}', ['uses' => 'MovieController@show']);
+
 
 Auth::routes();
 

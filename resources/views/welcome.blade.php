@@ -1,19 +1,23 @@
-@extends('layouts.app')
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Homepage</title>
+	<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+</head>
+<body>
 
-@section('content')
-    <div class="header py-7 py-lg-8">
-        <div class="container">
-            <div class="header-body text-center mb-7">
-                <div class="row justify-content-center">
-                    <div class="col-lg-5 col-md-6">
-                        <h1 class="text-white">{{ __('Welcome!') }}</h1>
-                        <p class="text-lead text-light">
-                            {{ __('Use Black Dashboard theme to create a great project.') }}
-                        </p>
-                        {{menu('Movie')}}
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-@endsection
+	<div class="container">
+		<br><br>
+		<div class="row">
+		@foreach($movies as $movie)
+			<div class="col-md-3">
+				<a href="/movie/{{ $movie->id }}">
+					<span>{{ $movie->title }}</span>
+				</a>
+			</div>
+		@endforeach
+		</div>
+	</div>
+
+</body>
+</html>
