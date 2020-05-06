@@ -10,6 +10,7 @@
                         <p class="text-lead text-light">
                             {{ __('Use Black Dashboard theme to create a great project.') }}
                         </p>
+                        {{menu('Movie')}}
                     </div>
                 </div>
             </div>
