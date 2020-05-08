@@ -18,8 +18,7 @@ use Illuminate\Support\Facades\Route;
 //    $movies = App\Movie::all();
 //    return view('welcome', compact('movies'));
 //});
-
-Route::get('/', ['uses' => 'MovieController@list']);
+Route::get('/', ['uses' => 'MovieController@list'])->name('welcome');
 Route::get('/movie/{id}', ['uses' => 'MovieController@show']);
 
 

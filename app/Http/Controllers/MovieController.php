@@ -21,8 +21,9 @@ class MovieController extends Controller
 //            echo $movie->title;
 //        }
 
-        $movie = Movie::all()->where('id', '=', 1);
-        return $movie;
+        $movie = Movie::all()->where('id', '=', $id);
+       // return $movie;
+       return view('movie', ['movie'=>$movie]);
 
     }
 
