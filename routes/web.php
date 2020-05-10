@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use TCG\Voyager\Voyager;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,36 +15,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-//Route::get('/', function () {
-//    $movies = App\Movie::all();
-//    return view('welcome', compact('movies'));
-//});
+//TODO:
 Route::get('/', ['uses' => 'MovieController@list'])->name('welcome');
-Route::get('/movie/{id}', ['uses' => 'MovieController@show']);
+Route::get('/movie/{id}', ['uses' => 'MovieController@show'])->middleware('auth');
+Route::post('/movie/{id}/watch-later', ['uses' => 'MovieController@setWatchLater'])->middleware('auth');
+Route::delete('/movie/{id}/watch-later', ['uses' => 'MovieController@deleteWatchLater'])->middleware('auth');
+Route::get('/user/watch-later', ['uses' => 'MovieController@watchLaterList'])->middleware('auth');
+//TODO:
 
 
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home');
 Auth::routes();
-
 Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
 Route::group(['middleware' => 'auth'], function () {
-		Route::get('icons', ['as' => 'pages.icons', 'uses' => 'PageController@icons']);
-		Route::get('maps', ['as' => 'pages.maps', 'uses' => 'PageController@maps']);
-		Route::get('notifications', ['as' => 'pages.notifications', 'uses' => 'PageController@notifications']);
-		Route::get('rtl', ['as' => 'pages.rtl', 'uses' => 'PageController@rtl']);
-		Route::get('tables', ['as' => 'pages.tables', 'uses' => 'PageController@tables']);
-		Route::get('typography', ['as' => 'pages.typography', 'uses' => 'PageController@typography']);
-		Route::get('upgrade', ['as' => 'pages.upgrade', 'uses' => 'PageController@upgrade']);
+    Route::get('icons', ['as' => 'pages.icons', 'uses' => 'PageController@icons']);
+    Route::get('maps', ['as' => 'pages.maps', 'uses' => 'PageController@maps']);
+    Route::get('notifications', ['as' => 'pages.notifications', 'uses' => 'PageController@notifications']);
+    Route::get('rtl', ['as' => 'pages.rtl', 'uses' => 'PageController@rtl']);
+    Route::get('tables', ['as' => 'pages.tables', 'uses' => 'PageController@tables']);
+    Route::get('typography', ['as' => 'pages.typography', 'uses' => 'PageController@typography']);
+    Route::get('upgrade', ['as' => 'pages.upgrade', 'uses' => 'PageController@upgrade']);
 });
 
 Route::group(['middleware' => 'auth'], function () {
-	Route::resource('user', 'UserController', ['except' => ['show']]);
-	Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
-	Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
-	Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
+    Route::resource('user', 'UserController', ['except' => ['show']]);
+    Route::get('profile', ['as' => 'profile.edit', 'uses' => 'ProfileController@edit']);
+    Route::put('profile', ['as' => 'profile.update', 'uses' => 'ProfileController@update']);
+    Route::put('profile/password', ['as' => 'profile.password', 'uses' => 'ProfileController@password']);
 });
 
 
